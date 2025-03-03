@@ -12,6 +12,8 @@ jobs:
   build:
     name: Build and Package WPF App
     runs-on: windows-latest
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
 
     steps:
       - name: Checkout Repository
@@ -27,7 +29,7 @@ jobs:
         run: |
           $version = [xml](Get-Content ./AudioSplitter.UI/AudioSplitter.UI.csproj)
           $version = $version.Project.PropertyGroup.Version
-          echo "VERSION=$version" | Out-File -FilePath $env:GITHUB_ENV -Append
+          echo "version=$version" >> $env:GITHUB_OUTPUT
 
       - name: Restore Dependencies
         run: dotnet restore
@@ -43,7 +45,7 @@ jobs:
           @'
           [Setup]
           AppName=Audio Sample Splitter
-          AppVersion=${{ env.VERSION }}
+          AppVersion=${{ steps.get_version.outputs.version }}
           DefaultDirName={pf}\Audio Sample Splitter
           DefaultGroupName=Audio Sample Splitter
           OutputDir=.
@@ -87,8 +89,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: AudioSplitterSetup.exe
-          tag_name: v${{ env.VERSION }}
-          release_name: "Release v${{ env.VERSION }}"
+          tag_name: v${{ needs.build.outputs.version }}
+          release_name: "Release v${{ needs.build.outputs.version }}"
           draft: false
           prerelease: false
           token: ${{ secrets.GH_PAT }}
