@@ -56,10 +56,10 @@ jobs:
           Source: "publish\*"; DestDir: "{app}"; Flags: recursesubdirs
           
           [Icons]
-          Name: "{group}\Audio Sample Splitter"; Filename: "{app}\AudioSplitter.exe"
+          Name: "{group}\Audio Sample Splitter"; Filename: "{app}\AudioSplitter.UI.exe"
           
           [Run]
-          Filename: "{app}\AudioSplitter.exe"; Description: "Launch the application"; Flags: nowait postinstall skipifsilent          
+          Filename: "{app}\AudioSplitter.UI.exe"; Description: "Launch the application"; Flags: nowait postinstall skipifsilent          
           '@ | Out-File -FilePath installer.iss -Encoding utf8
 
       - name: Build Installer
