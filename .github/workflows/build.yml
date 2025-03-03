@@ -20,7 +20,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.0.x'  # Adjust for your .NET version
+          dotnet-version: '9.0.x' # Adjust for your .NET version
 
       - name: Get Version from .csproj
         id: get_version
@@ -35,19 +35,41 @@ jobs:
       - name: Build Application
         run: dotnet publish -c Release -r win-x64 --self-contained true -o ./publish
 
-      - name: Install WiX Toolset
-        run: choco install wixtoolset --yes
+      - name: Install Inno Setup
+        run: choco install innosetup -y
 
-      - name: Build MSI Installer
+      - name: Generate Inno Setup Script
         run: |
-          candle Product.wxs
-          light -out AudioSplitter-${{ env.VERSION }}.msi Product.wixobj
+          @'
+          [Setup]
+          AppName=Audio Sample Splitter
+          AppVersion=${{ env.VERSION }}
+          DefaultDirName={pf}\Audio Sample Splitter
+          DefaultGroupName=Audio Sample Splitter
+          OutputDir=.
+          OutputBaseFilename=AudioSplitterSetup
+          Compression=lzma2
+          SolidCompression=yes
+          ArchitecturesInstallIn64BitMode=x64
 
-      - name: Upload MSI Artifact
+          [Files]
+          Source: "publish\*"; DestDir: "{app}"; Flags: recursesubdirs
+
+          [Icons]
+          Name: "{group}\Audio Sample Splitter"; Filename: "{app}\AudioSplitter.exe"
+
+          [Run]
+          Filename: "{app}\AudioSplitter.exe"; Description: "Launch the application"; Flags: nowait postinstall skipifsilent
+          '@ | Out-File -FilePath installer.iss -Encoding utf8
+
+      - name: Build Installer
+        run: iscc installer.iss
+
+      - name: Upload Installer Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: AudioSplitter-${{ env.VERSION }}.msi
-          path: ./AudioSplitter-${{ env.VERSION }}.msi
+          name: AudioSplitterSetup.exe
+          path: ./AudioSplitterSetup.exe
 
   release:
     name: Create GitHub Release
@@ -55,18 +77,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download MSI Artifact
+      - name: Download Installer Artifact
         uses: actions/download-artifact@v4
         with:
+          name: AudioSplitterSetup.exe
           path: ./
-
-      - name: Rename Artifact
-        run: mv ./AudioSplitter-${{ env.VERSION }}.msi/artifact.msi ./AudioSplitter-${{ env.VERSION }}.msi
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: AudioSplitter-${{ env.VERSION }}.msi
+          files: AudioSplitterSetup.exe
           tag_name: v${{ env.VERSION }}
           release_name: "Release v${{ env.VERSION }}"
           draft: false
