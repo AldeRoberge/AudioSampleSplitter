@@ -42,6 +42,7 @@ jobs:
         run: |
           @'
           [Setup]
+          SilentInstall=true
           AppName=Audio Sample Splitter
           AppVersion=${{ env.VERSION }}
           DefaultDirName={pf}\Audio Sample Splitter
