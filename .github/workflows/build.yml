@@ -57,7 +57,6 @@ jobs:
           
           [Icons]
           Name: "{group}\Audio Sample Splitter"; Filename: "{app}\AudioSplitter.exe"
-          Name: "{desktop}\Audio Sample Splitter"; Filename: "{app}\AudioSplitter.exe"; WorkingDir: "{app}"; IconFilename: "{app}\AudioSplitter.exe"
           
           [Run]
           Filename: "{app}\AudioSplitter.exe"; Description: "Launch the application"; Flags: nowait postinstall skipifsilent          
