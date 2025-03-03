@@ -1,5 +1,9 @@
 name: Build and Release WPF App
 
+permissions:
+  contents: write
+
+
 on:
   push:
     branches:
@@ -57,5 +61,4 @@ jobs:
           release_name: "Release v1.0.${{ github.run_number }}"
           draft: false
           prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_PAT }}
