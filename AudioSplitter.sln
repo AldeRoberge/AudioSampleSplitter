@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioSplitter", "AudioSplit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioSplitter.UI", "AudioSplitter.UI\AudioSplitter.UI.csproj", "{BC745296-A40D-43C3-B445-75C466EB77B7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioSplitter.Tests", "AudioSplitter.Tests\AudioSplitter.Tests.csproj", "{88114058-C9D8-411A-9B02-CF62879BA3ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{BC745296-A40D-43C3-B445-75C466EB77B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC745296-A40D-43C3-B445-75C466EB77B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC745296-A40D-43C3-B445-75C466EB77B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88114058-C9D8-411A-9B02-CF62879BA3ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88114058-C9D8-411A-9B02-CF62879BA3ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88114058-C9D8-411A-9B02-CF62879BA3ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88114058-C9D8-411A-9B02-CF62879BA3ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
