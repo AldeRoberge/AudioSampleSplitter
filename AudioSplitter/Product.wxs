@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="*" Name="Audio Splitter" Language="1033" Version="1.0.0.0" Manufacturer="YourCompany" UpgradeCode="PUT-YOUR-GUID-HERE">
+        <Package InstallerVersion="500" Compressed="yes" InstallScope="perMachine" />
+
+        <MediaTemplate EmbedCab="yes"/>
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder">
+                <Directory Id="INSTALLFOLDER" Name="AudioSplitter">
+                    <Component Id="MainExecutable" Guid="PUT-YOUR-GUID-HERE">
+                        <File Id="MainEXE" Name="AudioSplitter.exe" Source="..\publish\AudioSplitter.exe" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="MainFeature" Title="Main Feature" Level="1">
+            <ComponentRef Id="MainExecutable" />
+        </Feature>
+    </Product>
+</Wix>

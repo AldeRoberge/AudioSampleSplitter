@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: Build and Test WPF App
+    name: Build and Package WPF App
     runs-on: windows-latest
 
     steps:
@@ -20,7 +20,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.0.x' # Adjust for your .NET version
+          dotnet-version: '9.0.x'  # Adjust for your .NET version
 
       - name: Get Version from .csproj
         id: get_version
@@ -35,17 +35,19 @@ jobs:
       - name: Build Application
         run: dotnet publish -c Release -r win-x64 --self-contained true -o ./publish
 
-      - name: Archive Build
-        run: |
-          $zipName = "audio-sample-splitter-${{ env.VERSION }}-x64.zip"
-          Compress-Archive -Path ./publish/* -DestinationPath ./$zipName
-          echo "ZIP_NAME=$zipName" | Out-File -FilePath $env:GITHUB_ENV -Append
+      - name: Install WiX Toolset
+        run: choco install wixtoolset --yes
 
-      - name: Upload Artifact
+      - name: Build MSI Installer
+        run: |
+          candle Product.wxs
+          light -out AudioSplitter-${{ env.VERSION }}.msi Product.wixobj
+
+      - name: Upload MSI Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.ZIP_NAME }}
-          path: ./${{ env.ZIP_NAME }}
+          name: AudioSplitter-${{ env.VERSION }}.msi
+          path: ./AudioSplitter-${{ env.VERSION }}.msi
 
   release:
     name: Create GitHub Release
@@ -53,18 +55,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download Build Artifact
+      - name: Download MSI Artifact
         uses: actions/download-artifact@v4
         with:
           path: ./
 
       - name: Rename Artifact
-        run: mv ./${{ env.ZIP_NAME }}/artifact.zip ./${{ env.ZIP_NAME }}
+        run: mv ./AudioSplitter-${{ env.VERSION }}.msi/artifact.msi ./AudioSplitter-${{ env.VERSION }}.msi
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: ${{ env.ZIP_NAME }}
+          files: AudioSplitter-${{ env.VERSION }}.msi
           tag_name: v${{ env.VERSION }}
           release_name: "Release v${{ env.VERSION }}"
           draft: false
