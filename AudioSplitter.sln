@@ -1,7 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioSplitter", "AudioSplitter\AudioSplitter.csproj", "{DB8E6960-EB5A-40C1-A140-C224C4ED2C80}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioSplitter.UI", "AudioSplitter.UI\AudioSplitter.UI.csproj", "{BC745296-A40D-43C3-B445-75C466EB77B7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioSplitter.Tests", "AudioSplitter.Tests\AudioSplitter.Tests.csproj", "{88114058-C9D8-411A-9B02-CF62879BA3ED}"
@@ -12,10 +10,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DB8E6960-EB5A-40C1-A140-C224C4ED2C80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DB8E6960-EB5A-40C1-A140-C224C4ED2C80}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DB8E6960-EB5A-40C1-A140-C224C4ED2C80}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DB8E6960-EB5A-40C1-A140-C224C4ED2C80}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BC745296-A40D-43C3-B445-75C466EB77B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BC745296-A40D-43C3-B445-75C466EB77B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC745296-A40D-43C3-B445-75C466EB77B7}.Release|Any CPU.ActiveCfg = Release|Any CPU

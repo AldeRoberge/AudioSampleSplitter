@@ -25,7 +25,7 @@ jobs:
       - name: Get Version from .csproj
         id: get_version
         run: |
-          $version = [xml](Get-Content ./AudioSplitter/AudioSplitter.csproj)
+          $version = [xml](Get-Content ./AudioSplitter.UI/AudioSplitter.UI.csproj)
           $version = $version.Project.PropertyGroup.Version
           echo "VERSION=$version" | Out-File -FilePath $env:GITHUB_ENV -Append
 
@@ -51,15 +51,16 @@ jobs:
           Compression=lzma2
           SolidCompression=yes
           ArchitecturesInstallIn64BitMode=x64
-
+          
           [Files]
           Source: "publish\*"; DestDir: "{app}"; Flags: recursesubdirs
-
+          
           [Icons]
           Name: "{group}\Audio Sample Splitter"; Filename: "{app}\AudioSplitter.exe"
-
+          Name: "{desktop}\Audio Sample Splitter"; Filename: "{app}\AudioSplitter.exe"; WorkingDir: "{app}"; IconFilename: "{app}\AudioSplitter.exe"
+          
           [Run]
-          Filename: "{app}\AudioSplitter.exe"; Description: "Launch the application"; Flags: nowait postinstall skipifsilent
+          Filename: "{app}\AudioSplitter.exe"; Description: "Launch the application"; Flags: nowait postinstall skipifsilent          
           '@ | Out-File -FilePath installer.iss -Encoding utf8
 
       - name: Build Installer
