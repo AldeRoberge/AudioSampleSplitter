@@ -9,6 +9,8 @@
 
 Allows to split a large audio file into lighter, smaller ones. 🍑
 
+![image](https://github.com/user-attachments/assets/ec8ee747-bdba-4af6-87f7-1babbf17c6d4)
+
 ## Download
 * You can access the latest download [here](https://github.com/AldeRoberge/AudioSampleSplitter/releases).
 
