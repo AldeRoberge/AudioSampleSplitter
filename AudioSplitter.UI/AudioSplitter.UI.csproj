@@ -7,15 +7,14 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
         <ApplicationIcon>icon.ico</ApplicationIcon>
-        <AssemblyVersion>1.1.1</AssemblyVersion>
-        <Version>1.1.2</Version>
+        <Version>1.1.3</Version>
     </PropertyGroup>
 
     <ItemGroup>
-      <None Remove="icon.ico" />
-      <Resource Include="icon.ico">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Resource>
+        <None Remove="icon.ico"/>
+        <Resource Include="icon.ico">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
     </ItemGroup>
 
 </Project>
