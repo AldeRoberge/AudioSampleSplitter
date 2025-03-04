@@ -15,4 +15,10 @@
 
 ## Notes
 * Requires [FFMPEG](https://www.ffmpeg.org/)
-* Only works for Windows (built using WPF)
+* Only works for Windows
+
+
+## Security oriented folks
+* AudioSampleSplitter is fully open-source : no hidden surprises, no shady dependencies. 
+* It’s built with pure .NET and WPF, relying only on your own installation of FFMPEG, a trusted industry-standard tool. 
+* Review the code, modify it, or compile it yourself.
