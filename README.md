@@ -7,14 +7,6 @@
 
 <h1 align="center">AudioSampleSplitter 🍑</h1>
 
-<p align="center">
-  <strong>
-    Audio&nbsp;&nbsp;&bull;&nbsp;&nbsp;
-    Sample&nbsp;&nbsp;&nbsp;...
-    Splitter
-  </strong>
-</p>
-
 * Allows to split a large audio file into lighter, smaller ones.
 
 ![image]()
