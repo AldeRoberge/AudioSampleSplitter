@@ -5,16 +5,16 @@
   </a>
 </div>
 
-<h1 align="center">AudioSampleSplitter 🍑</h1>
+<h1 align="center">AudioSampleSplitter ✂️</h1>
 
-Allows to split a large audio file into lighter, smaller ones.
+Allows to split a large audio file into lighter, smaller ones. 🍑
 
 ## Download
 * You can access the latest download [here](https://github.com/AldeRoberge/AudioSampleSplitter/releases).
 
 ## Notes
-* Requires a local installation of [FFMPEG](https://www.ffmpeg.org/).
-* Only works on Windows.
+* Requires a local installation of 👑 [FFMPEG](https://www.ffmpeg.org/).
+* Only works on ... 🤢 Windows.
 
 ![image](https://github.com/user-attachments/assets/7a0c64fd-424c-44f6-b2d2-367aee953664)
 
