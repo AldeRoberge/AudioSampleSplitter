@@ -15,7 +15,6 @@ Allows to split a large audio file into lighter, smaller ones. 🍑
 * You can access the latest download [here](https://github.com/AldeRoberge/AudioSampleSplitter/releases).
 
 ## Notes
-* Requires a local installation of 👑 [FFMPEG](https://www.ffmpeg.org/).
 * Only works on ... 🤢 Windows.
 
 ![Absolutely incredible screenshot](https://github.com/user-attachments/assets/7a0c64fd-424c-44f6-b2d2-367aee953664)
