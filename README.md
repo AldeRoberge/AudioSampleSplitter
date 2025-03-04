@@ -10,7 +10,7 @@
 Allows to split a large audio file into lighter, smaller ones. 🍑
 
 ## Download
-* You can access the latest download [Mom, look at this awesome screenshot I took!](https://github.com/AldeRoberge/AudioSampleSplitter/releases).
+* You can access the latest download [here](https://github.com/AldeRoberge/AudioSampleSplitter/releases).
 
 ## Notes
 * Requires a local installation of 👑 [FFMPEG](https://www.ffmpeg.org/).
