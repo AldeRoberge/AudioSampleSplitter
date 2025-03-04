@@ -1,4 +1,4 @@
-name: Build and Release WPF App
+name: Build and Release WPF App (Portable)
 
 permissions:
   contents: write
@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: Build and Package WPF App
+    name: Build and Package WPF App (Portable)
     runs-on: windows-latest
     outputs:
       version: ${{ steps.get_version.outputs.version }}
@@ -34,44 +34,18 @@ jobs:
       - name: Restore Dependencies
         run: dotnet restore
 
-      - name: Build Application
-        run: dotnet publish -c Release -r win-x64 --self-contained true -o ./publish
-
-      - name: Install Inno Setup
-        run: choco install innosetup -y
-
-      - name: Generate Inno Setup Script
+      - name: Build Application (Portable)
         run: |
-          @'
-          [Setup]
-          AppName=Audio Sample Splitter
-          AppVersion=${{ steps.get_version.outputs.version }}
-          DefaultDirName={pf}\Audio Sample Splitter
-          DefaultGroupName=Audio Sample Splitter
-          OutputDir=.
-          OutputBaseFilename=AudioSplitterSetup
-          Compression=lzma2
-          SolidCompression=yes
-          ArchitecturesInstallIn64BitMode=x64
-          
-          [Files]
-          Source: "publish\*"; DestDir: "{app}"; Flags: recursesubdirs
-          
-          [Icons]
-          Name: "{group}\Audio Sample Splitter"; Filename: "{app}\AudioSplitter.UI.exe"
-          
-          [Run]
-          Filename: "{app}\AudioSplitter.UI.exe"; Description: "Launch the application"; Flags: nowait postinstall skipifsilent          
-          '@ | Out-File -FilePath installer.iss -Encoding utf8
+          dotnet publish -c Release -r win-x64 --self-contained true -o ./publish /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true
 
-      - name: Build Installer
-        run: iscc installer.iss
+      - name: Create ZIP Archive
+        run: Compress-Archive -Path ./publish/* -DestinationPath AudioSplitterPortable.zip
 
-      - name: Upload Installer Artifact
+      - name: Upload Portable ZIP Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: AudioSplitterSetup.exe
-          path: ./AudioSplitterSetup.exe
+          name: AudioSplitterPortable.zip
+          path: ./AudioSplitterPortable.zip
 
   release:
     name: Create GitHub Release
@@ -79,18 +53,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download Installer Artifact
+      - name: Download Portable ZIP Artifact
         uses: actions/download-artifact@v4
         with:
-          name: AudioSplitterSetup.exe
+          name: AudioSplitterPortable.zip
           path: ./
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: AudioSplitterSetup.exe
+          files: AudioSplitterPortable.zip
           tag_name: v${{ needs.build.outputs.version }}
-          release_name: "Release v${{ needs.build.outputs.version }}"
+          release_name: "Release v${{ needs.build.outputs.version }} (Portable)"
           draft: false
           prerelease: false
           token: ${{ secrets.GH_PAT }}
