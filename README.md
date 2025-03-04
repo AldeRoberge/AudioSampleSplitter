@@ -16,5 +16,6 @@
 
 ## Security oriented folks
 * ASS is built with pure .NET and WPF, relying only on your own installation of FFMPEG, a trusted industry-standard tool. 
-* ASS is fully **open-source** : no hidden surprises, no shady dependencies. 
+* ASS is fully **open-source** : no hidden surprises, no shady dependencies.
+* Does not require elevated permissions to run.
 * Still not sure? Review the code, modify it, or compile it yourself.
