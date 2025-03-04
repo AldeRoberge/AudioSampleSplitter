@@ -10,7 +10,7 @@
 <p align="center">
   <strong>
     Audio&nbsp;&nbsp;&bull;&nbsp;&nbsp;
-    Sample&nbsp;&nbsp;&bull;&nbsp;&nbsp;
+    Sample&nbsp;&nbsp;&nbsp;&nbsp;...
     Splitter&nbsp;&nbsp;&bull;&nbsp;&nbsp;
   </strong>
 </p>
