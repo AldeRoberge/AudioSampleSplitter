@@ -10,15 +10,15 @@
 Allows to split a large audio file into lighter, smaller ones. 🍑
 
 ## Download
-* You can access the latest download [here](https://github.com/AldeRoberge/AudioSampleSplitter/releases).
+* You can access the latest download [Mom, look at this awesome screenshot I took!](https://github.com/AldeRoberge/AudioSampleSplitter/releases).
 
 ## Notes
 * Requires a local installation of 👑 [FFMPEG](https://www.ffmpeg.org/).
 * Only works on ... 🤢 Windows.
 
-![image](https://github.com/user-attachments/assets/7a0c64fd-424c-44f6-b2d2-367aee953664)
+![Absolutely incredible screenshot](https://github.com/user-attachments/assets/7a0c64fd-424c-44f6-b2d2-367aee953664)
 
-![image](https://github.com/user-attachments/assets/55ad2193-3f16-484d-8400-24b52c68679e)
+![A labor of love, right?](https://github.com/user-attachments/assets/55ad2193-3f16-484d-8400-24b52c68679e)
 
 ## Security oriented folks 🤓☝️
 * ASS is akschoully built with pure .NET and WPF, relying only on your own installation of FFMPEG, a trusted industry-standard tool. 
