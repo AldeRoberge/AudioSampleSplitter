@@ -17,4 +17,15 @@
         </Resource>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Binaries\ffprobe.exe" />
+      <Content Include="Binaries\ffprobe.exe">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="Binaries\ffmpeg.exe" />
+      <Content Include="Binaries\ffmpeg.exe">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>

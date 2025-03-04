@@ -10,9 +10,13 @@ namespace AudioSplitter.UI
 {
     public partial class MainWindow
     {
-        private readonly ObservableCollection<AudioFile> _audioFiles = [];
+        private readonly ObservableCollection<AudioFile> _audioFiles = new();
 
         private bool _isFfmpegInstalled;
+
+        // Define the local paths for ffmpeg and ffprobe (assumed to be in AudioSampleSplitter\Binaries)
+        private readonly string _localFfmpegPath  = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "ffmpeg.exe");
+        private readonly string _localFfprobePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "ffprobe.exe");
 
         // Silence detection parameters
         private const string SilenceNoise     = "-40dB";
@@ -25,7 +29,11 @@ namespace AudioSplitter.UI
             FileListBox.ItemsSource = _audioFiles;
 
             // Check if FFMPEG is installed after UI is loaded
-            Loaded += async (s, e) => { await CheckFfmpegStatus(); };
+            Loaded += async (s, e) =>
+            {
+                LogToUI("Welcome to Audio Sample Splitter!");
+                await CheckFfmpegStatus();
+            };
         }
 
         private async Task CheckFfmpegStatus()
@@ -39,13 +47,16 @@ namespace AudioSplitter.UI
             {
                 FfmpegStatusText.Text = "Installed";
                 FfmpegStatusIndicator.Fill = Brushes.Green;
+
+                LogToUI("FFmpeg is installed and ready to use.");
             }
             else
             {
                 FfmpegStatusText.Text = "Not Installed";
                 FfmpegStatusIndicator.Fill = Brushes.Red;
-
                 GiveHelpOnHowToInstallFfmpeg();
+
+                LogToUI("FFmpeg is not installed or cannot be found. Please install it to proceed.");
             }
 
             UpdateSplitButtonState();
@@ -55,7 +66,7 @@ namespace AudioSplitter.UI
         {
             // Show instructions to install FFMPEG
             MessageBoxResult result = MessageBox.Show(
-                "FFmpeg is not installed. Please install it to proceed with audio splitting.\n\n" +
+                "FFmpeg is not installed or cannot be found in the local Binaries folder. Please install it to proceed with audio splitting.\n\n" +
                 "Visit the following website for installation instructions:\n" +
                 "https://ffmpeg.org/download.html\n\n" +
                 "Do you want to open the installation page now?",
@@ -82,11 +93,15 @@ namespace AudioSplitter.UI
 
         private bool IsFfmpegInstalled()
         {
+            // Check if the local ffmpeg executable exists
+            if (!File.Exists(_localFfmpegPath))
+                return false;
+
             try
             {
                 var startInfo = new ProcessStartInfo
                 {
-                    FileName = "ffmpeg",
+                    FileName = _localFfmpegPath,
                     Arguments = "-version",
                     RedirectStandardOutput = true,
                     UseShellExecute = false,
@@ -163,7 +178,7 @@ namespace AudioSplitter.UI
 
         private string FormatFileSize(long bytes)
         {
-            string[] sizes = ["B", "KB", "MB", "GB"];
+            string[] sizes = { "B", "KB", "MB", "GB" };
             var order = 0;
             double size = bytes;
 
@@ -246,7 +261,8 @@ namespace AudioSplitter.UI
         private double GetAudioDuration(string file)
         {
             var args = $"-v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 \"{file}\"";
-            var output = RunProcessWithOutput("ffprobe", args);
+            // Use the local ffprobe
+            var output = RunProcessWithOutput(_localFfprobePath, args);
             if (double.TryParse(output, NumberStyles.Any, CultureInfo.InvariantCulture, out var duration))
                 return duration;
             return 0;
@@ -255,7 +271,8 @@ namespace AudioSplitter.UI
         private double GetAudioBitrate(string file)
         {
             var args = $"-v error -select_streams a:0 -show_entries stream=bit_rate -of default=noprint_wrappers=1:nokey=1 \"{file}\"";
-            var output = RunProcessWithOutput("ffprobe", args);
+            // Use the local ffprobe
+            var output = RunProcessWithOutput(_localFfprobePath, args);
             if (double.TryParse(output, NumberStyles.Any, CultureInfo.InvariantCulture, out var bitrate))
                 return bitrate / 1000.0;
             return 128; // fallback bitrate
@@ -265,7 +282,8 @@ namespace AudioSplitter.UI
         {
             var silencePoints = new List<double>();
             var args = $"-i \"{file}\" -af silencedetect=noise={SilenceNoise}:d={SilenceDuration} -f null -";
-            var output = RunProcessWithOutput("ffmpeg", args, readError: true);
+            // Use the local ffmpeg and capture error output (where silence data is written)
+            var output = RunProcessWithOutput(_localFfmpegPath, args, readError: true);
 
             var regex = new Regex(@"silence_end:\s*(\d+(\.\d+)?)", RegexOptions.Compiled);
             var matches = regex.Matches(output);
@@ -309,7 +327,7 @@ namespace AudioSplitter.UI
 
         private void SplitAudioFile(string filePath, long splitSizeBytes)
         {
-            // Retrieve duration and bitrate
+            // Retrieve duration and bitrate using local ffprobe
             var duration = GetAudioDuration(filePath);
             var bitrateKbps = GetAudioBitrate(filePath);
 
@@ -354,12 +372,12 @@ namespace AudioSplitter.UI
                     Path.GetDirectoryName(filePath),
                     Path.GetFileNameWithoutExtension(filePath) + $"_part{segmentIndex}" + Path.GetExtension(filePath));
 
-                // Try using -acodec for better compatibility with older FFmpeg versions
+                // First try splitting with stream copy
                 var ffmpegArgs = $"-ss {currentTime.ToString("0.00", CultureInfo.InvariantCulture)} -i \"{filePath}\" -t {segDuration.ToString("0.00", CultureInfo.InvariantCulture)} -acodec copy -y \"{outputFile}\"";
                 LogToUI($"Segment {segmentIndex}: {currentTime:0.00}s to {nextCut:0.00}s");
-                LogToUI($"Executing: ffmpeg {ffmpegArgs}");
+                LogToUI($"Executing: {_localFfmpegPath} {ffmpegArgs}");
 
-                var exitCode = RunProcessWithErrorOutput("ffmpeg", ffmpegArgs);
+                var exitCode = RunProcessWithErrorOutput(_localFfmpegPath, ffmpegArgs);
 
                 if (exitCode != 0)
                 {
@@ -368,8 +386,8 @@ namespace AudioSplitter.UI
 
                     // Try alternative method by re-encoding instead of copying
                     ffmpegArgs = $"-ss {currentTime.ToString("0.00", CultureInfo.InvariantCulture)} -i \"{filePath}\" -t {segDuration.ToString("0.00", CultureInfo.InvariantCulture)} -acodec pcm_s16le -y \"{outputFile}\"";
-                    LogToUI($"Executing: ffmpeg {ffmpegArgs}");
-                    exitCode = RunProcessWithErrorOutput("ffmpeg", ffmpegArgs);
+                    LogToUI($"Executing: {_localFfmpegPath} {ffmpegArgs}");
+                    exitCode = RunProcessWithErrorOutput(_localFfmpegPath, ffmpegArgs);
 
                     if (exitCode != 0)
                     {
@@ -432,7 +450,7 @@ namespace AudioSplitter.UI
             };
 
             using var proc = Process.Start(psi);
-            // Read output asynchronously to prevent deadlocks
+            // Read output to prevent deadlocks
             var output = proc.StandardOutput.ReadToEnd();
             var error = proc.StandardError.ReadToEnd();
 
@@ -466,7 +484,6 @@ namespace AudioSplitter.UI
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
 
         private void NeedHelpButton_Click(object sender, RoutedEventArgs e)
         {
