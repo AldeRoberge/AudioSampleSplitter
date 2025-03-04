@@ -17,7 +17,6 @@ Allows to split a large audio file into lighter, smaller ones. 🍑
 ## Notes
 * Requires a local installation of 👑 [FFMPEG](https://www.ffmpeg.org/).
 * Only works on ... 🤢 Windows.
-* [Why](https://storage.googleapis.com/adg-default-storage/Other/iau72yug97d91.webp)?
 
 ![Absolutely incredible screenshot](https://github.com/user-attachments/assets/7a0c64fd-424c-44f6-b2d2-367aee953664)
 
@@ -25,6 +24,6 @@ Allows to split a large audio file into lighter, smaller ones. 🍑
 
 ## Security oriented folks 🤓☝️
 * ASS is akschoully built with pure .NET and WPF, relying only on your own installation of FFMPEG, a trusted industry-standard tool. 
-* ASS is fully **open-source** : no backdoors 😏, hidden surprises, no shady dependencies.
+* ASS is fully **open-source** : no [backdoors](https://storage.googleapis.com/adg-default-storage/Other/iau72yug97d91.webp) 😏, hidden surprises, no shady dependencies.
 * Does not require elevated permissions to run.
 * Still not sure? Review the code, modify it, or compile it yourself. Be a "smart ASS user!"🧐
