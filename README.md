@@ -7,9 +7,7 @@
 
 <h1 align="center">AudioSampleSplitter 🍑</h1>
 
-* Allows to split a large audio file into lighter, smaller ones.
-
-![image]()
+Allows to split a large audio file into lighter, smaller ones.
 
 ## Download
 * You can access the latest download [here](https://github.com/AldeRoberge/AudioSampleSplitter/releases).
