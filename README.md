@@ -22,7 +22,8 @@ Allows to split a large audio file into lighter, smaller ones. 🍑
 ![A labor of love, right?](https://github.com/user-attachments/assets/55ad2193-3f16-484d-8400-24b52c68679e)
 
 ## Security oriented folks 🤓☝️
-* ASS is akschoully built with pure .NET and WPF, relying only on your own installation of FFMPEG, a trusted industry-standard tool. 
+* ASS is akschoully built with pure .NET and WPF, relying only on your own installation of FFMPEG, a trusted industry-standard tool.
+* Yes, Microsoft SmartScreen will throw a warning. It's perfectly normal, since I won't be paying hundreds of dollars for a code signing certificate.
 * ASS is fully **open-source** : no [backdoors](https://storage.googleapis.com/adg-default-storage/Other/iau72yug97d91.webp) 😏, hidden surprises, no shady dependencies.
 * Does not require elevated permissions to run.
 * Still not sure? Review the code, modify it, or compile it yourself. Be a "smart ASS user!"🧐
