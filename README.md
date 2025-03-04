@@ -22,6 +22,6 @@ Allows to split a large audio file into lighter, smaller ones. 🍑
 
 ## Security oriented folks 🤓☝️
 * ASS is akschoully built with pure .NET and WPF, relying only on your own installation of FFMPEG, a trusted industry-standard tool. 
-* ASS is fully **open-source** : no hidden surprises, no shady dependencies.
+* ASS is fully **open-source** : no backdoors 😏, hidden surprises, no shady dependencies.
 * Does not require elevated permissions to run.
-* Still not sure? Review the code, modify it, or compile it yourself.
+* Still not sure? Review the code, modify it, or compile it yourself. Be a "smart ASS user!"🧐
