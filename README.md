@@ -1,7 +1,23 @@
-# AudioSampleSplitter 🍑
+
+<div align="center">
+  <a href="https://github.com/AldeRoberge/AudioSampleSplitter/">
+    <img src="https://storage.googleapis.com/adg-default-storage/Other/cisors.png" width="150px" height="auto">
+  </a>
+</div>
+
+<h1 align="center">AudioSampleSplitter 🍑</h1>
+
+<p align="center">
+  <strong>
+    Audio&nbsp;&nbsp;&bull;&nbsp;&nbsp;
+    Sample&nbsp;&nbsp;&bull;&nbsp;&nbsp;
+    Splitter&nbsp;&nbsp;&bull;&nbsp;&nbsp;
+  </strong>
+</p>
+
 * Allows to split a large audio file into lighter, smaller ones.
 
-![image](https://github.com/user-attachments/assets/19c85d4a-a462-438f-bf15-2d75d1d17ed0)
+![image]()
 
 ## Download
 * You can access the latest download [here](https://github.com/AldeRoberge/AudioSampleSplitter/releases).
