@@ -17,7 +17,7 @@ Allows to split a large audio file into lighter, smaller ones. 🍑
 ## Notes
 * Only works on ... 🤢 Windows.
 
-![Absolutely incredible screenshot](https://github.com/user-attachments/assets/7a0c64fd-424c-44f6-b2d2-367aee953664)
+![image](https://github.com/user-attachments/assets/28ebd894-a64c-4a2d-83ef-7c06b89addfa)
 
 ![A labor of love, right?](https://github.com/user-attachments/assets/55ad2193-3f16-484d-8400-24b52c68679e)
 
